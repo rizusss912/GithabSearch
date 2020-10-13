@@ -1,0 +1,74 @@
+<div class="background"></div>
+<div class="search_main"  (window:resize)="onResize()"  #mainSearchDiv>
+      <a href="https://github.com/" class="logo"></a>
+      <div class="sticky">
+        <div class="search_header">
+            <input class="search_line shadow"  type="search" [(ngModel)]="inputStr" (input)="changeInput(searchLine.value)" placeholder="Search in Github ..." #searchLine>
+            <ng-container *ngIf="!!searchMessage">
+              <span class="search_count">{{searchMessage}}</span>
+            </ng-container>
+        </div>
+      </div>
+    <div class="search_body">
+      <table class="search_elements_list" *ngIf="!!response && !isLoadingPage; else loadingPage">
+        <ng-container *ngFor="let items_line of getCrutchList(); index as i">
+          <tr class="search_elements_line">
+            <ng-container *ngFor="let item of items_line">
+              <td>
+                <div class="search_element shadow" (click)="goFullView(item)">
+                  <div class="element_img" style="background-image: url({{item.avatar_url}});"></div>
+                  <p href="{{item.html_url}}" class="element_login">{{item.login}}</p>
+                </div>
+              </td>
+            </ng-container>
+          </tr>
+          <tr *ngIf="!!fullViewItem && i == getLineFullView()">
+              <td [attr.colspan]="numberOfItemsInRow">
+                <div class="full_view">
+                  <table class="search_elements_list" >
+                    <tr>
+                      <td rowspan="2" class="vertical-align-top">
+                        <div class="full_img" style="background-image: url({{fullViewItem.avatar_url}});"></div>
+                      </td>
+                      <td class="full_td_name">
+                          <div class="full_login">
+                            <a href="{{fullViewItem.html_url}}" >{{fullViewItem.login}}</a>
+                          </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="repos_ul_span">Repositories:</span>
+                        <ul class="repos_list" *ngIf="!isLoadingRep; else loading">
+                          <li *ngFor="let repository of fullViewRepository">
+                            <a href="{{repository.html_url}}">{{repository.name}}</a>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+          </tr>
+        </ng-container>
+      </table>
+        <div *ngIf="!!response && this.response.total_count > this.response.items.length" class="div_navigator">
+            <ul class="navigator">
+              <li class="clickable"  (click)="newPage(1)"             *ngIf="page > 3">                <p>1</p></li>
+              <li class="none_decore"                                 *ngIf="page > 5">                <p>...</p></li>
+              <li class="clickable"  (click)="newPage(5)"             *ngIf="page == 5">               <p>2</p></li>
+              <li class="clickable"  (click)="newPage(this.page - 2)" *ngIf="page > 2">                <p>{{page - 2}}</p></li>
+              <li class="clickable"  (click)="newPage(this.page - 1)" *ngIf="page > 1">                <p>{{page - 1}}</p></li>
+              <li class="active_page">                                                                 <p>{{page}}</p></li>
+              <li class="clickable"  (click)="newPage(this.page + 1)" *ngIf="getLastPage() > page + 1"><p>{{page + 1}}</p></li>
+              <li class="clickable"  (click)="newPage(this.page + 2)" *ngIf="getLastPage() > page + 2"><p>{{page + 2}}</p></li>
+              <li class="clickable"  (click)="newPage(this.page + 3)" *ngIf="getLastPage() ==page + 4"><p>{{page + 3}}</p></li>
+              <li class="none_decore"                                 *ngIf="getLastPage() > page + 4"><p>...</p></li>
+              <li class="clickable"  (click)="newPage(getLastPage())" *ngIf="getLastPage() != page"><p>{{getLastPage()}}</p></li>
+            </ul>
+      </div>
+    </div>
+</div>
+
+<ng-template #loading>  <div class="loading_box"><div class="loading"></div></div> </ng-template>
+<ng-template #loadingPage>  <div class="loading_box_page" *ngIf="!!response"><div class="loading_page" ></div></div> </ng-template>
