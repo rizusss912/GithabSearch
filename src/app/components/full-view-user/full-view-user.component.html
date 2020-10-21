@@ -1,0 +1,22 @@
+<table>
+    <tr>
+        <td>
+            <div class="img g_img" style="background-image: url({{user.avatar_url}});"></div>
+        </td>
+        <td class="main_info">
+            <section>
+                <a href="{{user.html_url}}" >{{user.login}}</a>
+            </section>
+            <span class="g_unselect">Repositories:</span>
+            <ul *ngIf="!!repositories else preloader">
+              <li *ngFor="let repos of repositories">
+                <a href="{{repos.html_url}}">{{repos.name}}</a>
+              </li>
+            </ul>
+            <ng-container *ngIf="!!repositories && (repositories.length % 30 == 0)">
+                <button *ngIf="!upload else preloader" (click)="uploadMoreRepos()">upload more</button>
+            </ng-container>
+            <ng-template #preloader><app-preloader-globe [size]="100"></app-preloader-globe></ng-template>
+        </td>
+    </tr>
+</table>

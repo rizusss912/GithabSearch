@@ -1,0 +1,46 @@
+div{
+    text-align: center;
+}
+ul {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+li {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 5px;
+    text-align: center;
+}
+p {
+    background-color: transparent;
+    display: block;
+    transform: translate(0, -50%);
+    top: 50%;
+    position: relative;
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+.active_page{
+    background-color: #eee;
+    transform: scale(1.2);
+}
+.none_decore{
+    background-color: transparent;
+    border: 0px;
+}
+.clickable{
+    transition: 0.3s;
+    background-color: #eee;
+}
+.clickable:hover{
+      background-color: #bbb;
+      transform: scale(1.1);
+}
+.clickable:active{
+    background-color: #979797;
+    transform: scale(0.9);
+}

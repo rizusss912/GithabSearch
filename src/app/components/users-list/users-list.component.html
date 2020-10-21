@@ -1,0 +1,19 @@
+<table class="g_width_controller" (window:resize)="onResize()" #usersTable>
+    <ng-container *ngFor="let itemsLine of getTable(); index as i">
+        <tr>
+        <td *ngFor="let user of itemsLine">
+                <app-user [user]="user" (click)="newFullView(user)"></app-user>
+        </td>
+        </tr>
+        <tr *ngIf="!!fullViewUser && i == getLineFullUser()">
+            <td [attr.colspan]="itemsInLine">
+                <app-full-view-user [user]="fullViewUser"></app-full-view-user>
+            </td>
+        </tr>
+    </ng-container>
+    <tr *ngIf="lastPage > 1" class="footer">
+        <td [attr.colspan]="itemsInLine">
+            <app-users-list-footer [page]="page" [lastPage]="lastPage" (newPage)="newPage.emit($event)"></app-users-list-footer>
+        </td>
+    </tr>
+</table>

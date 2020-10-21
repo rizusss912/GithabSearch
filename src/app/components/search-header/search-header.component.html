@@ -1,0 +1,10 @@
+ <div class="main">
+    <a href="https://github.com/" class="g_img git-logo"></a>
+</div>
+<div class="sticky">
+    <div  class="g_width_controller seeker">
+        <input type="search" [(ngModel)]="inputStr" (input)="newInput($event.target.value)" placeholder="Search in Github ...">
+        <span class="g_unselect">{{message}}</span>
+    </div>
+</div>
+<div class="triangle main"></div>

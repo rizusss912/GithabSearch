@@ -1,0 +1,11 @@
+tr {
+    height: 90px;
+    width: 100%;
+}
+.full{
+    background-color: rebeccapurple;
+    height: 100px;
+}
+.footer{
+    height: auto;
+}

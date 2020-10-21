@@ -1,0 +1,15 @@
+<div>
+    <ul>
+      <li class="clickable"  (click)="newPage.emit(1)"             *ngIf="page > 3">                <p>1</p></li>
+      <li class="none_decore"                                      *ngIf="page > 5">                <p>...</p></li>
+      <li class="clickable"  (click)="newPage.emit(5)"             *ngIf="page == 5">               <p>2</p></li>
+      <li class="clickable"  (click)="newPage.emit(this.page - 2)" *ngIf="page > 2">                <p>{{page - 2}}</p></li>
+      <li class="clickable"  (click)="newPage.emit(this.page - 1)" *ngIf="page > 1">                <p>{{page - 1}}</p></li>
+      <li class="active_page">                                                                 <p>{{page}}</p></li>
+      <li class="clickable"  (click)="newPage.emit(this.page + 1)" *ngIf="lastPage > page + 1"><p>{{page + 1}}</p></li>
+      <li class="clickable"  (click)="newPage.emit(this.page + 2)" *ngIf="lastPage > page + 2"><p>{{page + 2}}</p></li>
+      <li class="clickable"  (click)="newPage.emit(this.page + 3)" *ngIf="lastPage == page + 4"><p>{{page + 3}}</p></li>
+      <li class="none_decore"                                      *ngIf="lastPage > page + 4"><p>...</p></li>
+      <li class="clickable"  (click)="newPage.emit(lastPage)" *ngIf="lastPage != page"><p>{{lastPage}}</p></li>
+    </ul>
+</div>

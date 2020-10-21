@@ -1,0 +1,78 @@
+.main{
+    width: 100%;
+    text-align: center; 
+    background-color: #24292E;
+}
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #24292E;
+
+}
+.triangle{
+    height: 40px;  
+    clip-path: polygon(
+        0 -1px,
+        100% -1px,
+        100% 100%,
+        0 -1px
+      );
+}
+.git-logo{
+    width: 100px;
+    height: 100px;
+    background-image: url(https://github.com/fluidicon.png);
+    display: inline-block;
+    position: relative;
+    border-radius: 50%;
+    margin: 15px auto;
+}
+.seeker{
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+.seeker > * {
+    display: block;
+    width: 100%;
+}
+.seeker > input {
+    height: 35px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #EBEBEB;
+    transition: 0.4s;
+
+    /** text decorator **/
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 17px;
+}
+
+.seeker > input:hover,
+.seeker > input:focus{
+    background-color: white;
+}
+
+.seeker > input::placeholder{
+    transition: 0.4s;
+}
+
+.seeker > input:hover::placeholder,
+.seeker > input:focus::placeholder{
+    color: transparent;
+}
+
+.seeker > span {
+    margin-top: 8px;
+    text-align: left;
+    height: 18px;
+
+    /** text decorator **/
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #A8A8A8;
+    letter-spacing: 1px;
+}
