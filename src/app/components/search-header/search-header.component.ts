@@ -8,12 +8,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SearchHeaderComponent implements OnInit {
 
   @Input() message: string;
-  @Output() newRequest: EventEmitter<string> = new EventEmitter;
+  @Output() newRequest: EventEmitter<string> = new EventEmitter();
 
   inputStr: string;
-  constructor(){
-  }
-
   ngOnInit(): void {
     this.inputStr = '';
   }

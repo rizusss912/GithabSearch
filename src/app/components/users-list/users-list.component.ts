@@ -1,20 +1,15 @@
-import { Component, AfterViewInit, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
-import { GithubUsersList } from '../../services/github-api.service';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { GithubUser } from '../../services/github-api.service';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { GithubUser, GithubUsersList } from '../../services/github-api.service';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements AfterViewInit, OnInit{
-  constructor() {
-  }
 
   @Input() usersList: GithubUsersList;
   @Input() page: number;
-  @Output() newPage: EventEmitter<string> = new EventEmitter;
+  @Output() newPage: EventEmitter<string> = new EventEmitter();
 
   itemsInLine: number;
   fullViewUser: GithubUser;
@@ -40,7 +35,9 @@ export class UsersListComponent implements AfterViewInit, OnInit{
     this.fullViewUser = user;
   }
   getLineFullUser(): number{
-    if (this.usersList.items.indexOf(this.fullViewUser) == -1) { this.fullViewUser == undefined; }
+    if (this.usersList.items.indexOf(this.fullViewUser) === -1) {
+      this.fullViewUser = undefined;
+    }
     return Math.floor(this.usersList.items.indexOf(this.fullViewUser) / this.itemsInLine);
   }
 }
