@@ -32,6 +32,8 @@
     "@types/node": "^12.11.1",
     "angular-cli-github-pages": "^0.2.0",
     "codelyzer": "^6.0.0",
+    "eslint": "^7.12.1",
+    "eslint-plugin-react": "^7.21.5",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",

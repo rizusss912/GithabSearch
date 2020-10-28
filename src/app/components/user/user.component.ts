@@ -9,5 +9,5 @@ export class UserComponent {
 
   @Input() user: GithubUser;
   constructor() { }
-  
+
 }

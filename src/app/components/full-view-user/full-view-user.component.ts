@@ -10,21 +10,21 @@ export class FullViewUserComponent implements OnInit {
 
   @Input() user;
   repositories: GithubRepos[];
-  upload:boolean;
+  upload: boolean;
   constructor(private api: GithubAPIService) {
   }
-  
+
   ngOnInit(): void {
     this.upload = true;
     this.api.getGithubRepositoriesList(this.user.login, 1).subscribe((data) => {
       this.repositories = data;
       this.upload = false;
-    })
+    });
   }
 
-  uploadMoreRepos(){
+  uploadMoreRepos(): void{
     this.upload = true;
-    this.api.getGithubRepositoriesList(this.user.login, Math.floor(this.repositories.length / 30)+1).subscribe((data) => {
+    this.api.getGithubRepositoriesList(this.user.login, Math.floor(this.repositories.length / 30) + 1).subscribe((data) => {
       this.repositories.push.apply(this.repositories, data);
       this.upload = false;
     });

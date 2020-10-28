@@ -6,12 +6,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./search-header.component.css']
 })
 export class SearchHeaderComponent implements OnInit {
-  
+
   @Input() message: string;
   @Output() newRequest: EventEmitter<string> = new EventEmitter;
 
   inputStr: string;
-  constructor() { }
+  constructor(){
+  }
 
   ngOnInit(): void {
     this.inputStr = '';
@@ -19,10 +20,12 @@ export class SearchHeaderComponent implements OnInit {
 
   newInput(value): void{
     this.message = (this.inputStr !== '') ? 'Loading ...' : '';
-    if(!!value && value !== '')
+    if (!!value && value !== '') {
       setTimeout(() => {
-        if(value === this.inputStr)
+        if (value === this.inputStr) {
           this.newRequest.emit(value);
+        }
       }, 1000);
+    }
   }
 }

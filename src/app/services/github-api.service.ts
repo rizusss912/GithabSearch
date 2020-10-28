@@ -72,9 +72,9 @@ export interface GithubRepos{
   issue_comment_url: string;
   issue_events_url: string;
   issues_url: string;
-  keys_url:string;
+  keys_url: string;
   labels_url: string;
-  language:string;
+  language: string;
   languages_url: string;
   merges_url: string;
   milestones_url: string;
@@ -111,23 +111,24 @@ export interface GithubRepos{
 })
 export class GithubAPIService {
   private cache;
+
   constructor(private http: HttpClient) {
-    this.cache = new Map<string, Observable<any>>();;
+    this.cache = new Map<string, Observable<any>>();
   }
 
   httpRequest(url): Observable<any>{
-    if(!this.cache.has(url))
+    if (!this.cache.has(url)) {
     this.cache.set(
       url,
       this.http.get<any>(url).pipe(
         shareReplay(1)
       )
     );
-  return this.cache.get(url);
+    }
+    return this.cache.get(url);
   }
- м 
   newGithubUsersList(str, page): Observable<GithubUsersList>{
-    const url = 'https://api.github.com/search/users?q=' + str + "&&page=" + page;
+    const url = 'https://api.github.com/search/users?q=' + str + '&&page=' + page;
     return this.httpRequest(url);
   }
 

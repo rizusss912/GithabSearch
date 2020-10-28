@@ -10,7 +10,8 @@ export class UsersListFooterComponent implements OnInit {
   @Input() page: number;
   @Input() lastPage: number;
   @Output() newPage: EventEmitter<number> = new EventEmitter;
-  constructor() { }
+  constructor(){
+  }
 
   ngOnInit(): void {
   }
