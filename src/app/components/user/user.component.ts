@@ -8,6 +8,4 @@ import { GithubUser } from '../../services/github-api.service';
 export class UserComponent {
 
   @Input() user: GithubUser;
-  constructor() { }
-
 }

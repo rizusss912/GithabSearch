@@ -5,11 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './preloader-globe.component.html',
   styleUrls: ['./preloader-globe.component.css']
 })
-export class PreloaderGlobeComponent implements OnInit {
+export class PreloaderGlobeComponent {
 
   @Input() size: number;
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 }

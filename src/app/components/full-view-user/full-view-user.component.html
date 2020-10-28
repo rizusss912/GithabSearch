@@ -8,7 +8,7 @@
                 <a href="{{user.html_url}}" >{{user.login}}</a>
             </section>
             <span class="g_unselect">Repositories:</span>
-            <ul *ngIf="!!repositories else preloader">
+            <ul *ngIf="repositories$ | async as repositories">
               <li *ngFor="let repos of repositories">
                 <a href="{{repos.html_url}}">{{repos.name}}</a>
               </li>
