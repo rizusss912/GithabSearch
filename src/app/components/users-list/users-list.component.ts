@@ -1,11 +1,18 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { GithubUser, GithubUsersList } from '../../services/github-api.service';
+import { Component, AfterViewInit, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { GithubUsersList } from '../../services/github-api.service';
+import { GithubUser } from '../../services/github-api.service';
+
+
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements AfterViewInit, OnInit{
+  constructor(
+    private cdr: ChangeDetectorRef,
+  ) {
+  }
 
   @Input() usersList: GithubUsersList;
   @Input() page: number;
@@ -32,11 +39,14 @@ export class UsersListComponent implements AfterViewInit, OnInit{
   }
 
   newFullView(user): void{
+    console.log('hi', user);
     this.fullViewUser = user;
+    this.cdr.markForCheck();
   }
+
   getLineFullUser(): number{
-    if (this.usersList.items.indexOf(this.fullViewUser) === -1) {
-      this.fullViewUser = undefined;
+    if (!this.usersList.items.includes(this.fullViewUser)) {
+      return -1;
     }
     return Math.floor(this.usersList.items.indexOf(this.fullViewUser) / this.itemsInLine);
   }

@@ -1,32 +1,37 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { GithubAPIService } from '../../services/github-api.service';
-import { GithubRepos } from '../../services/github-api.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { GithubAPIService, GithubRepos, GithubUser } from '../../services/github-api.service';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { mergeMap, scan, switchMap, tap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-full-view-user',
   templateUrl: './full-view-user.component.html',
-  styleUrls: ['./full-view-user.component.css']
+  styleUrls: ['./full-view-user.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FullViewUserComponent implements OnInit {
+export class FullViewUserComponent {
+  @Input() user: GithubUser;
 
-  @Input() user;
-  repositories: GithubRepos[];
-  upload: boolean;
-  constructor(private api: GithubAPIService) {
+  repositories: GithubRepos[] = [];
+  upload = false;
+
+  pageSubject = new BehaviorSubject(1);
+
+  repositories$: Observable<GithubRepos[]> = this.pageSubject.pipe(
+    mergeMap((page) => {
+      this.upload = true;
+      return this.api.getGithubRepositoriesList(this.user.login, page);
+    }),
+    tap(() => this.upload = false),
+    scan((acc, data) => acc.concat(...data), []),
+  );
+
+  constructor(
+    private api: GithubAPIService,
+  ) {
   }
 
-  ngOnInit(): void {
-    this.upload = true;
-    this.api.getGithubRepositoriesList(this.user.login, 1).subscribe((data) => {
-      this.repositories = data;
-      this.upload = false;
-    });
-  }
-
-  uploadMoreRepos(): void{
-    this.upload = true;
-    this.api.getGithubRepositoriesList(this.user.login, Math.floor(this.repositories.length / 30) + 1).subscribe((data) => {
-      this.repositories.push.apply(this.repositories, data);
-      this.upload = false;
-    });
+  uploadMoreRepos(): void {
+    this.pageSubject.next(this.pageSubject.getValue() + 1);
   }
 }
